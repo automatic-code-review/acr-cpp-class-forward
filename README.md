@@ -1,4 +1,4 @@
-# acr-extension-name
+# acr-cpp-class-forward
 
 Arquivo config.json
 
