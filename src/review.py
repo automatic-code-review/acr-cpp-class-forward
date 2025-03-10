@@ -100,6 +100,7 @@ def __review_by_line(line, path, path_source, line_number, comment_description):
     if __is_same_layer(include_path, path, path_source):
         comment_path = path.replace(path_source, '')[1:]
         comment_description = comment_description.replace('${INCLUDE_PATH}', include_path)
+        comment_description = comment_description.replace('${FILE_PATH}', comment_path)
         
         comments.append(commons.comment_create(
             comment_id=commons.comment_generate_id(comment_description),
