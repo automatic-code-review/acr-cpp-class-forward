@@ -62,7 +62,12 @@ def __review_by_file( path, path_source, ignore, comment_description):
     inheritance = __load_inheritance( path )
 
     for inherit in inheritance:
-        regex_list_to_ignore.append(f'.*{inherit.lower()}.h')
+        template = re.match(r"^(.*?)<([^<>]*)>", inherit)
+        if template:
+            for group in template.groups():
+                regex_list_to_ignore.append(f'.*{group.lower()}.h')
+        else:
+            regex_list_to_ignore.append(f'.*{inherit.lower()}.h')
 
     comments = []
     line_number = 0
