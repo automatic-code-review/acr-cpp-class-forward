@@ -49,7 +49,7 @@ def __load_inheritance(path):
         obj = json.loads(obj)
 
         if 'inherits' in obj:
-            inheritance.append(obj['inherits'])
+            inheritance.extend(obj['inherits'].split(','))
 
     return inheritance
 
