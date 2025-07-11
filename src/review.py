@@ -49,7 +49,7 @@ def __load_inheritance(path):
         obj = json.loads(obj)
 
         if 'inherits' in obj:
-            inheritance.extend(obj['inherits'].split(','))
+            inheritance.extend(obj['inherits'].replace('<', ',').replace('>', ',').split(','))
 
     return inheritance
 
@@ -62,12 +62,8 @@ def __review_by_file( path, path_source, ignore, comment_description):
     inheritance = __load_inheritance( path )
 
     for inherit in inheritance:
-        template = re.match(r"^(.*?)<([^<>]*)>", inherit)
-        if template:
-            for group in template.groups():
-                regex_list_to_ignore.append(f'.*{group.lower()}.h')
-        else:
-            regex_list_to_ignore.append(f'.*{inherit.lower()}.h')
+        if inherit.strip():
+            regex_list_to_ignore.append(f'.*{inherit.strip().lower()}.h')
 
     comments = []
     line_number = 0
